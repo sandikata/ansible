@@ -1,0 +1,20 @@
+---
+- name: Install epel repo
+  hosts: centos
+  become: yes
+
+- name: Install nginx tomcat java
+  hosts: centos
+  become: yes
+  
+  tasks:
+   - name: Install epel repo
+     yum:
+       name: epel-release
+       state: latest
+
+   - name: Install nginx tomcat java
+     yum:
+       name: nginx, tomcat, java-latest-openjdk 
+       state: latest
+
