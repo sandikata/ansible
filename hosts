@@ -1,0 +1,9 @@
+[all:vars]
+# IMPORTANT
+ansible_python_interpreter=/usr/bin/python2.7
+
+[servers]
+aleksandrov.pfoo.org
+
+[workstations]
+centos ansible_ssh_user=root ansible_ssh_port=30022
