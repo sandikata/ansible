@@ -1,0 +1,6 @@
+~ ➜ ansible centos -u root -m ping
+centos | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+~ ➜ 
