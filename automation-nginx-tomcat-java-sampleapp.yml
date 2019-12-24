@@ -6,7 +6,7 @@
 - name: Install nginx tomcat java
   hosts: centos
   become: yes
-  
+
   tasks:
    - name: Install epel repo
      yum:
@@ -18,3 +18,19 @@
        name: nginx, tomcat, java-latest-openjdk 
        state: latest
 
+   - name: Start Nginx and Tomcat
+     command: systemctl enable --now nginx tomcat
+
+   - name: Allow http/https
+     command: firewall-cmd --permanent --add-service=http --add-service=https
+   - name: Allow tomcat
+     command: firewall-cmd --permanent --add-port=8080/tcp
+   - name: Reload Firewall
+     command: firewall-cmd --reload
+
+   - name: Download sample app
+     get_url: 
+       url: https://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war
+       dest: /tmp/sample.war
+   - name: Install sample java app
+     command: cp /tmp/sample.war /var/lib/tomcat/webapps/  
