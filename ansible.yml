@@ -26,9 +26,23 @@
       state: started
       enabled: true
 
-   - name: Allow http/https
-     command: firewall-cmd --permanent --add-service=http --add-service=https
-   - name: Allow tomcat
-     command: firewall-cmd --permanent --add-port=8080/tcp
-   - name: Reload Firewall
-     command: firewall-cmd --reload
+   - firewalld:
+       service: http
+       permanent: true
+       state: enabled
+
+   - firewalld:
+       service: https
+       permanent: true
+       state: enabled
+
+   - firewalld:
+       port: 8080/tcp
+       permanent: true
+       state: enabled
+
+   - name: Set httpd_can_network_connect flag on and keep it persistent across reboots
+     seboolean:
+      name: httpd_can_network_connect
+      state: true
+      persistent: true
