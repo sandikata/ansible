@@ -1,0 +1,34 @@
+---
+- name: Automatic nginx tomcat java installation.
+  hosts: centos
+  become: true
+
+  tasks:
+   - name: Install epel repo
+     yum:
+      name: epel-release
+      state: present
+
+   - name: Install nginx tomcat java
+     yum:
+      name: nginx, tomcat, java-latest-openjdk
+      state: present
+
+   - name: Start Nginx
+     service:
+      name: nginx
+      state: started
+      enabled: true
+
+   - name: Start Tomcat
+     service:
+      name: tomcat
+      state: started
+      enabled: true
+
+   - name: Allow http/https
+     command: firewall-cmd --permanent --add-service=http --add-service=https
+   - name: Allow tomcat
+     command: firewall-cmd --permanent --add-port=8080/tcp
+   - name: Reload Firewall
+     command: firewall-cmd --reload
