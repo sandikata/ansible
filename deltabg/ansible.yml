@@ -48,4 +48,4 @@
       persistent: true
 
    - name: Applying nginx tomcat proxy
-     command: cp nginx-proxy.yml /etc/nginx/conf.d
+     command: cp tomcat.conf /etc/nginx/conf.d
