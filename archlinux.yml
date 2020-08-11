@@ -1,0 +1,21 @@
+---
+- hosts: 192.168.56.54
+  tasks:
+    - name: upgrade all packages
+      pacman:
+        update_cache: yes
+        upgrade: yes
+    - name: Install "Development Tools" package group
+      pacman:
+        name: base-devel
+        state: present
+    - name: Install base packages
+      pacman:
+        name:
+         - nginx
+         - nano
+         - nmap
+         - openbsd-netcat
+         - net-tools
+         - inxi
+        state: present

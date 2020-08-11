@@ -1,9 +1,9 @@
 [all:vars]
 # IMPORTANT
-ansible_python_interpreter=/usr/bin/python2.7
+ansible_python_interpreter=/usr/bin/python3.8
 
 [servers]
-aleksandrov.pfoo.org
+192.168.56.54
 
 [workstations]
-centos ansible_ssh_user=root ansible_ssh_port=30022
+192.168.122.57 ansible_ssh_user=root ansible_ssh_port=22

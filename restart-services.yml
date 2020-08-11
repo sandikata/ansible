@@ -1,0 +1,12 @@
+---
+- hosts: 192.168.122.57
+  tasks:
+
+  - name: restart nginx
+    service:
+      name: nginx
+      state: restarted
+  - name: restart cobbler
+    service:
+      name: cobblerd
+      state: restarted

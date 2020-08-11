@@ -1,0 +1,26 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+- name: Upgrade All Packages
+  dnf:
+   name: "*"
+   state: latest
+
+#- name: Install "Development Tools" package group
+#  dnf:
+#   name: "@Development tools"
+#   state: present
+
+#- name: Install base packages
+#  dnf:
+#   name:
+#    - emacs-nox
+#    - nano
+#    - nmap
+#    - nmap-ncat
+#    - net-tools
+#    - nopaste
+#    - inxi
+#   state: present

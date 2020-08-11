@@ -1,0 +1,13 @@
+---
+- hosts:
+    - 192.168.56.201
+    - 192.168.56.202
+    - 192.168.56.203
+    - 192.168.56.204
+    - 192.168.56.208
+    - 192.168.56.212
+  tasks:
+    - name: upgrade all packages on elk cluster
+      dnf:
+        name: '*'
+        state: latest
