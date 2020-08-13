@@ -1,0 +1,8 @@
+---
+- hosts: 192.168.56.237
+  tasks:
+    - name: Delete User
+      user:
+        name: "{{ user_name }}"
+        state: absent
+        remove: false

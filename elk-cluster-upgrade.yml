@@ -9,5 +9,5 @@
   tasks:
     - name: upgrade all packages on elk cluster
       dnf:
-        name: '*'
+        name: "*"
         state: latest

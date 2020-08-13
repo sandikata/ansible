@@ -1,0 +1,52 @@
+---
+- hosts: 192.168.56.226
+  vars:
+    users:
+      - ralexandrov
+      - rmarinchev
+      - venzi
+      - joro
+      - iyovchev
+  tasks:
+    - name: Create devops group
+      group:
+        name: devops
+        state: present
+    - name: Create user accounts
+      user:
+        name: "{{ item }}"
+        groups: devops
+      with_items: "{{ users }}"
+    - name: Add authorized key for ralexandrov
+      authorized_key:
+        user: ralexandrov
+        state: present
+        key: "{{ lookup('file', 'rosen-devops.pub') }}"
+    - name: Add authorized key for rmarinchev
+      authorized_key:
+        user: rmarinchev
+        state: present
+        key: "{{ lookup('file', 'rmarinchev-devops.pub') }}"
+    - name: Add authorized key for venzi
+      authorized_key:
+        user: venzi
+        state: present
+        key: "{{ lookup('file', 'ventsi-devops.pub') }}"
+    - name: Add authorized key for joro
+      authorized_key:
+        user: joro
+        state: present
+        key: "{{ lookup('file', 'joro-devops.pub') }}"
+    - name: Add authorized key for iyovchev
+      authorized_key:
+        user: iyovchev
+        state: present
+        key: "{{ lookup('file', 'iyovchev-devops.pub') }}"
+    - name: Allow devops users to sudo without a password
+      lineinfile:
+        dest: /etc/sudoers.d/devops
+        regexp: "^%devops"
+        line: "%devops ALL=(ALL) NOPASSWD: ALL, !/bin/su"
+        create: true
+        mode: 0600
+        validate: /usr/sbin/visudo -cf %s
