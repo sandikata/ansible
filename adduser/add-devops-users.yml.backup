@@ -1,5 +1,5 @@
 ---
-- hosts: 192.168.56.237
+- hosts: 192.168.56.226
   vars:
     users:
       - ralexandrov

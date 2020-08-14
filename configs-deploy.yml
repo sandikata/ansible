@@ -1,0 +1,24 @@
+---
+- hosts: 192.168.56.237
+  tasks:
+    - name: deploy ansible config to 192.168.56.237
+      copy:
+        src: /etc/ansible/ansible.cfg.orig
+        dest: /root/ansible.cfg
+        mode: 0644
+
+- hosts: 192.168.56.54
+  tasks:
+    - name: deploy ansible config to 192.168.56.54
+      copy:
+        src: /etc/ansible/ansible.cfg.orig
+        dest: /tmp/ansible.cfg
+        mode: 0644
+
+- hosts: 192.168.56.241
+  tasks:
+    - name: deploy ansible config to 192.168.56.241
+      copy:
+        src: /etc/ansible/ansible.cfg.orig
+        dest: /root/ansible.cfg
+        mode: 0644
