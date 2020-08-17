@@ -1,0 +1,5 @@
+---
+- hosts: all
+  tasks:
+    - name: Debug
+      debug: msg={{ ansible_os_family }}
