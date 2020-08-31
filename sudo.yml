@@ -1,0 +1,18 @@
+- hosts: all
+  tasks:
+    - name: Debug
+      debug: msg={{ ansible_os_family }}
+
+    - set_fact: package_name=sudo
+      when: ansible_os_family == "RedHat"
+
+    - set_fact: package_name=sudo
+      when: ansible_os_family == "Debian"
+
+    - name: Install sudo
+      yum: name=sudo state=latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Install sudo
+      apt: name=sudo state=latest
+      when: ansible_os_family == "Debian"

@@ -1,0 +1,39 @@
+---
+- hosts: all
+  tasks:
+    - name: Debug
+      debug: msg={{ ansible_os_family }}
+
+    - set_fact: package_name=httpd
+      when: ansible_os_family == "RedHat"
+
+    - set_fact: package_name=apache2
+      when: ansible_os_family == "Debian"
+
+    #    - name: Install dnf on centos7 for better compatibility.
+    #      yum: name=dnf state=latest
+    #      when: ansible_os_family == "RedHat"
+
+    - name: Install zsh for Fedora/CentOS
+      yum: name=zsh state=latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Install zsh for Debian/Ubuntu
+      apt: name=zsh state=latest
+      when: ansible_os_family == "Debian"
+
+    - name: Deploy dotfiles to server/s.
+      copy:
+        src: rosen-dotfiles.tar
+        dest: /home/ralexandrov
+        owner: ralexandrov
+        group: ralexandrov
+        mode: "0644"
+    - name: Extract dotfiles.
+      unarchive:
+        src: /home/ralexandrov/rosen-dotfiles.tar
+        dest: /home/ralexandrov
+        remote_src: yes
+        owner: ralexandrov
+        group: ralexandrov
+        mode: "0755"

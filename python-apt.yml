@@ -1,0 +1,13 @@
+---
+- hosts: all
+  #  gather_facts: no
+  tasks:
+    - name: Debug
+      debug: msg={{ ansible_os_family }}
+
+    - set_fact: package_name=python-apt
+      when: ansible_os_family == "Debian"
+
+    - name: Install python-apt package, for ansible check mode.
+      apt: name={{ package_name }} state=latest
+      when: ansible_os_family == "Debian"
