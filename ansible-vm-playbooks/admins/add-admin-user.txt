@@ -1,0 +1,1 @@
+Пример: ansible-playbook -e "user_name=test public_key=ventsi-devops.pub" add-support-user.yml -v

@@ -10,6 +10,12 @@
     - set_fact: package_name=apache2
       when: ansible_os_family == "Debian"
 
+    - set_fact: package_name=tar
+      when: ansible_os_family == "RedHat"
+
+    - set_fact: package_name=tar
+      when: ansible_os_family == "Debian"
+
     #    - name: Install dnf on centos7 for better compatibility.
     #      yum: name=dnf state=latest
     #      when: ansible_os_family == "RedHat"
@@ -20,6 +26,14 @@
 
     - name: Install zsh for Debian/Ubuntu
       apt: name=zsh state=latest
+      when: ansible_os_family == "Debian"
+
+    - name: Install tar for Fedora/CentOS
+      yum: name=tar state=latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Install tar for Debian/Ubuntu
+      apt: name=tar state=latest
       when: ansible_os_family == "Debian"
 
     - name: Deploy dotfiles to server/s.

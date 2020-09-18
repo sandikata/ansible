@@ -1,0 +1,1 @@
+пример: ansible-playbook -e "user_name=test" del-support-user.yml -v

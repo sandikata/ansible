@@ -1,0 +1,19 @@
+- hosts: all
+  tasks:
+    - name: Debug
+      debug: msg={{ ansible_os_family }}
+
+    - set_fact: package_name=rsync
+      when: ansible_os_family == "RedHat"
+
+    - set_fact: package_name=rsync
+      when: ansible_os_family == "Debian"
+
+    - name: Install rsync CentOS/Fedora
+      yum: name=rsync state=latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Install rsync Debian/Ubuntu
+      apt: name=rsync state=latest
+      when: ansible_os_family == "Debian"
+

@@ -1,0 +1,41 @@
+---
+- hosts: 192.168.56.237
+  tasks:
+    - name: Create admins group
+      group:
+        name: admins
+        state: present
+    - name: Create User
+      user:
+        name: "{{ user_name }}"
+        groups: admins
+
+    - name: Add authorized key for "{{ user_name }}"
+      authorized_key:
+        user: "{{ user_name }}"
+        state: present
+        key: "{{ lookup ('file', public_key ) }}"
+
+    - name: Allow support users to sudo without a password
+      lineinfile:
+        dest: /etc/sudoers.d/admins
+        regexp: "^%admins"
+        line: "%admins ALL=(ALL) NOPASSWD: ALL, !/bin/su, !/usr/bin/chattr"
+        create: true
+        mode: 0600
+        validate: /usr/sbin/visudo -cf %s
+
+    - name: Protect /etc/sudoers
+      file:
+        path: /etc/sudoers
+        attr: +ai
+
+    - name: Protect /etc/sudoers.d/devops
+      file:
+        path: /etc/sudoers.d/devops
+        attr: +ai
+
+    - name: Protect /etc/sudoers.d/admins
+      file:
+        path: /etc/sudoers.d/admins
+        attr: +ai

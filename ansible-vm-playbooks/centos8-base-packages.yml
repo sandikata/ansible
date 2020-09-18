@@ -1,0 +1,38 @@
+---
+- hosts: all
+  gather_facts: no  # gather facts AFTER the host key has been accepted instead
+
+  tasks:
+#    - name: install python2-dnf
+#      yum:
+#        name: python2-dnf
+#        state: present
+
+    - name: enable epel repo
+      dnf:
+        name: epel-release
+        state: present
+
+    - name: upgrade all packages
+      dnf:
+        name: '*'
+        state: latest
+
+    - name: Install "Development Tools" package group
+      dnf:
+        name: "@Development tools"
+        state: present
+
+    - name: Install base packages
+      dnf:
+        name:
+          - emacs-nox
+          - nano
+          - vim
+          - nmap
+          - nmap-ncat
+          - net-tools
+          - htop
+          - rsync
+          - mc
+        state: present
