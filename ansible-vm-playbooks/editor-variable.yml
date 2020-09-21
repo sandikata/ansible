@@ -1,0 +1,10 @@
+---
+- hosts: rosen
+  tasks:
+    - name: Allow sysadmins users to sudo without a password
+      lineinfile:
+        dest: /etc/profile.d/editor.sh
+        regexp: "^EDITOR"
+        line: "EDITOR=vim"
+        create: true
+        mode: 0644
