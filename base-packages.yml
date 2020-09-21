@@ -1,0 +1,160 @@
+---
+- hosts: vps
+
+  tasks:
+    - name: Debug
+      debug: msg={{ ansible_os_family }}
+
+    - set_fact: package_name=nano
+      when: ansible_os_family == "RedHat"
+
+    - set_fact: package_name=vim
+      when: ansible_os_family == "RedHat"
+
+    - set_fact: package_name=nmap
+      when: ansible_os_family == "RedHat"
+
+    - set_fact: package_name=nmap-ncat
+      when: ansible_os_family == "RedHat"
+
+    - set_fact: package_name=net-tools
+      when: ansible_os_family == "RedHat"
+
+    - set_fact: package_name=htop
+      when: ansible_os_family == "RedHat"
+
+    - set_fact: package_name=rsync
+      when: ansible_os_family == "RedHat"
+
+    - set_fact: package_name=mc
+      when: ansible_os_family == "RedHat"
+
+    - set_fact: package_name=tar
+      when: ansible_os_family == "RedHat"
+
+    - set_fact: package_name=unzip
+      when: ansible_os_family == "RedHat"
+
+    - set_fact: package_name=sudo
+      when: ansible_os_family == "RedHat"
+
+    - set_fact: package_name=epel-release
+      when: ansible_os_family == "RedHat"
+
+    - set_fact: package_name=nano
+      when: ansible_os_family == "Debian"
+
+    - set_fact: package_name=vim
+      when: ansible_os_family == "Debian"
+
+    - set_fact: package_name=nmap
+      when: ansible_os_family == "Debian"
+
+    - set_fact: package_name=net-tools
+      when: ansible_os_family == "Debian"
+
+    - set_fact: package_name=htop
+      when: ansible_os_family == "Debian"
+
+    - set_fact: package_name=rsync
+      when: ansible_os_family == "Debian"
+
+    - set_fact: package_name=mc
+      when: ansible_os_family == "Debian"
+
+    - set_fact: package_name=tar
+      when: ansible_os_family == "Debian"
+
+    - set_fact: package_name=unzip
+      when: ansible_os_family == "Debian"
+
+    - set_fact: package_name=sudo
+      when: ansible_os_family == "Debian"
+
+    - name: Install nano for Fedora/CentOS
+      yum: name=nano state=latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Install vim for Fedora/CentOS
+      yum: name=vim state=latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Install nmap for Fedora/CentOS
+      yum: name=nmap state=latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Install nmap-ncat for Fedora/CentOS
+      yum: name=nmap-ncat state=latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Install net-tools for Fedora/CentOS
+      yum: name=net-tools state=latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Install htop for Fedora/CentOS
+      yum: name=htop state=latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Install rsync for Fedora/CentOS
+      yum: name=rsync state=latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Install mc for Fedora/CentOS
+      yum: name=mc state=latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Install tar for Fedora/CentOS
+      yum: name=tar state=latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Install unzip for Fedora/CentOS
+      yum: name=unzip state=latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Install sudo for Fedora/CentOS
+      yum: name=sudo state=latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Install epel for Fedora/CentOS
+      yum: name=epel-release state=latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Install nano for Debian/Ubuntu
+      apt: name=nano state=latest
+      when: ansible_os_family == "Debian"
+
+    - name: Install vim for Debian/Ubuntu
+      apt: name=vim state=latest
+      when: ansible_os_family == "Debian"
+
+    - name: Install nmap for Debian/Ubuntu
+      apt: name=nmap state=latest
+      when: ansible_os_family == "Debian"
+
+    - name: Install net-tools for Debian/Ubuntu
+      apt: name=net-tools state=latest
+      when: ansible_os_family == "Debian"
+
+    - name: Install htop for Debian/Ubuntu
+      apt: name=htop state=latest
+      when: ansible_os_family == "Debian"
+
+    - name: Install sudo for Debian/Ubuntu
+      apt: name=sudo state=latest
+      when: ansible_os_family == "Debian"
+
+    - name: Install rsync for Debian/Ubuntu
+      apt: name=rsync state=latest
+      when: ansible_os_family == "Debian"
+
+    - name: Install mc for Debian/Ubuntu
+      apt: name=mc state=latest
+      when: ansible_os_family == "Debian"
+
+    - name: Install tar for Debian/Ubuntu
+      apt: name=tar state=latest
+      when: ansible_os_family == "Debian"
+
+    - name: Install unzip for Debian/Ubuntu
+      apt: name=unzip state=latest
+      when: ansible_os_family == "Debian"

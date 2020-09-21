@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: vps
   gather_facts: no  # gather facts AFTER the host key has been accepted instead
 
   tasks:
@@ -35,4 +35,6 @@
           - htop
           - rsync
           - mc
+          - unzip
+          - tar
         state: present
