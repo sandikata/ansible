@@ -1,0 +1,12 @@
+---
+- hosts: ralexandrov
+  vars_prompt:
+    - name: editor
+      private: false
+
+  environment:
+    EDITOR: "{{ editor }}"
+
+  tasks:
+    - name: Change default editor.
+      shell: echo export EDITOR={{ editor }} >> /etc/profile
