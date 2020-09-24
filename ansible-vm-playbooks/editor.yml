@@ -9,4 +9,9 @@
 
   tasks:
     - name: Change default editor.
-      shell: echo export EDITOR={{ editor }} >> /etc/profile
+      lineinfile:
+        dest: /etc/profile.d/px-editor.sh
+        regexp: "^EDITOR"
+        line: "EDITOR={{ editor }}"
+        create: true
+        mode: 0644
