@@ -1,30 +1,26 @@
 ---
 - hosts: vps
-  gather_facts: no  # gather facts AFTER the host key has been accepted instead
+  gather_facts: false  # gather facts AFTER the host key has been accepted
 
   tasks:
-#    - name: install python2-dnf
-#      yum:
-#        name: python2-dnf
-#        state: present
 
     - name: enable epel repo
-      dnf:
+      yum:
         name: epel-release
         state: present
 
     - name: upgrade all packages
-      dnf:
+      yum:
         name: '*'
         state: latest
 
     - name: Install "Development Tools" package group
-      dnf:
+      yum:
         name: "@Development tools"
         state: present
 
     - name: Install base packages
-      dnf:
+      yum:
         name:
           - emacs-nox
           - nano
