@@ -158,3 +158,11 @@
     - name: Install unzip for Debian/Ubuntu
       apt: name=unzip state=latest
       when: ansible_os_family == "Debian"
+
+    - name: Change default editor to nano.
+      lineinfile:
+        dest: /etc/profile.d/px-editor.sh
+        regexp: "^EDITOR"
+        line: "EDITOR=nano"
+        create: true
+        mode: 0644
