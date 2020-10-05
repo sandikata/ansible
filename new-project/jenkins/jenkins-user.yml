@@ -1,0 +1,25 @@
+---
+- hosts: all
+
+  gather_facts: false
+
+  tasks:
+    - name: Create jenkins group
+      group:
+        name: jenkins
+        state: present
+    - name: Create jenkins user
+      user: name=jenkins groups=jenkins
+    - name: Add authorized key for jenkins
+      authorized_key:
+        user: jenkins
+        state: present
+        key: "{{ lookup('file', 'jenkins-user.pub') }}"
+
+    - name: Create necessary directories for jenkins
+      file:
+        path: /usr/local/bin/automation
+        state: directory
+        mode: '0755'
+        owner: jenkins
+        group: jenkins

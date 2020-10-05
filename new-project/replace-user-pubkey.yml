@@ -1,0 +1,14 @@
+---
+- hosts: ralexandrov
+
+  tasks:
+    - name: Remove current authorized key key for rmarinchev
+      authorized_key:
+        user: rmarinchev
+        state: absent
+        key: "{{ lookup('file', 'rmarinchev-devops.pub') }}"
+    - name: Add new authorized key for rmarinchev
+      authorized_key:
+        user: rmarinchev
+        state: present
+        key: "{{ lookup('file', 'ansible.pub') }}"

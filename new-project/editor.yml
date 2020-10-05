@@ -1,0 +1,11 @@
+---
+- hosts: ralexandrov
+
+  tasks:
+    - name: Change default editor.
+      lineinfile:
+        dest: /etc/profile.d/px-editor.sh
+        regexp: "^EDITOR"
+        line: "EDITOR=nano"
+        create: true
+        mode: 0644

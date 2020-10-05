@@ -1,0 +1,10 @@
+---
+- hosts: rosen
+  tasks:
+    - name: Add entries to /etc/profile.d/editor.sh
+      blockinfile:
+        path: /etc/profile.d/editor.sh
+        block: |
+          EDITOR=nano
+          EDITOR=emacs
+          EDITOR=vim

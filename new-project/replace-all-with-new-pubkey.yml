@@ -1,0 +1,8 @@
+- name: Set authorized key, removing all the authorized keys already set
+  authorized_key:
+    user: test
+    key: "{{ item }}"
+    state: present
+    exclusive: True
+    with_file:
+      - public_keys/doe-jane

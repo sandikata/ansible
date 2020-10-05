@@ -1,0 +1,36 @@
+---
+- hosts: vps
+  gather_facts: false  # gather facts AFTER the host key has been accepted
+
+  tasks:
+
+    - name: enable epel repo
+      yum:
+        name: epel-release
+        state: present
+
+    - name: upgrade all packages
+      yum:
+        name: '*'
+        state: latest
+
+    - name: Install "Development Tools" package group
+      yum:
+        name: "@Development tools"
+        state: present
+
+    - name: Install base packages
+      yum:
+        name:
+          - emacs-nox
+          - nano
+          - vim
+          - nmap
+          - nmap-ncat
+          - net-tools
+          - htop
+          - rsync
+          - mc
+          - unzip
+          - tar
+        state: present

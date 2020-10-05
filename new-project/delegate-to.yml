@@ -1,0 +1,19 @@
+---
+# a little rework
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: deploy ansible config to 192.168.56.237
+      copy:
+        src: /etc/ansible/ansible.cfg.orig
+        dest: /root/ansible.cfg
+        mode: 0644
+      delegate_to: 192.168.56.237
+
+    - name: deploy ansible config to 192.168.56.241
+      copy:
+        src: /etc/ansible/ansible.cfg.orig
+        dest: /root/ansible.cfg
+        mode: 0644
+      delegate_to: 192.168.56.241
+# Please do not ask me why 0644 :>

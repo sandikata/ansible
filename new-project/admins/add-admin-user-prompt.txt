@@ -1,0 +1,2 @@
+Пример: ansible-playbook -e "user_name=test public_key=ventsi-devops.pub" add-support-user.yml -v
+При изпълнение ще бъдете запитани за IP/Host за няколко разделяйте със запетая, пример 1.1.1.1,8.8.8.8,9.9.9.9 
