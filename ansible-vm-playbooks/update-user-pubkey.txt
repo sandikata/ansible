@@ -1,0 +1,1 @@
+aansible-playbook -e "user_name=joro old_public_key=devops/joro-devops.pub public_key=devops/rmarinchev-devops.pub" replace-user-pubkey.yml -i ~/servers.ansible/hosts.ini --limit 192.168.56.237 -v -C

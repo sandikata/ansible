@@ -1,0 +1,15 @@
+---
+- name: Update public key for "{{ user_name }}".
+  hosts: all
+
+  tasks:
+    - name: Remove current authorized key key for "{{ user_name }}"
+      authorized_key:
+        user: "{{ user_name }}"
+        state: absent
+        key: "{{ lookup('file', old_public_key) }}"
+    - name: Add new authorized key for {{ user_name }}
+      authorized_key:
+        user: "{{ user_name }}"
+        state: present
+        key: "{{ lookup('file', public_key) }}"
