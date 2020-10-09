@@ -133,6 +133,9 @@
           - emacs-nox
           - nano
           - vim
+          - git
+          - axel
+          - curl
           - neofetch
           - inxi
           - nmap
