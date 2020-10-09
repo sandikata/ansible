@@ -1,0 +1,163 @@
+---
+- name: Ubuntu Initial Setup.
+  hosts: localhost
+  gather_facts: false
+  tasks:
+
+    - name: Add Atom Public Key
+      apt_key:
+      url: https://packagecloud.io/AtomEditor/atom/gpgkey
+      state: present
+
+    - name: Add Atom Repository
+      apt_repository:
+        repo: https://packagecloud.io/AtomEditor/atom/any/ any main
+        state: present
+        filename: atom
+
+    - name: Add Riot Public Key
+      apt_key:
+        url: https://packages.riot.im/debian/riot-im-archive-keyring.gpg
+        state: present
+
+    - name: Add Riot Repository
+      apt_repository:
+        repo: deb https://packages.riot.im/debian/ default main
+        state: present
+        filename: riot
+
+    - name: Add Yandex Public Key
+      apt_key:
+        url: https://repo.yandex.ru/yandex-disk/YANDEX-DISK-KEY.GPG
+        state: present
+
+    - name: Add Yandex Repository
+      apt_repository:
+        repo: deb http://repo.yandex.ru/yandex-disk/deb/ stable main
+        state: present
+        filename: yandex
+
+    - name: Add WeeChat Public Key
+      apt_key:
+        keyserver: keys.openpgp.org
+        id: 11E9DE8848F2B65222AA75B8D1820DB22A11534E
+
+    - name: Add WeeChat Repository
+      apt_repository:
+        repo: deb https://weechat.org/ubuntu focal main
+        state: present
+        filename: weechat
+
+    - name: Add Spotify Public Key
+      apt_key:
+        url: https://download.spotify.com/debian/pubkey_0D811D58.gpg
+        state: present
+
+    - name: Add Spotify Repository
+      apt_repository:
+        repo: deb http://repository.spotify.com stable non-free
+        state: present
+        filename: spotify
+
+    - name: Add TeamViewer Public Key
+      apt_key:
+        url: https://download.teamviewer.com/download/linux/signature/TeamViewer2017.asc
+        state: present
+
+    - name: Add TeamViewer Repository
+      apt_repository:
+        repo: deb http://linux.teamviewer.com/deb stable main
+        state: present
+        filename: teamviever
+
+    - name: Add VirtualBox Public Key
+      apt_key:
+        url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+        state: present
+
+    - name: Add VirtualBox Repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian eoan contrib
+        state: present
+        filename: virtualbox
+
+    - name: Add Balena Etcher Public Key
+      apt_key:
+        keyserver: keyserver.ubuntu.com
+        id: 379CE192D401AB61
+
+    - name: Add Balena Etcher Repository
+      apt_repository:
+        repo: https://deb.etcher.io stable etcher
+        state: present
+        filename: etcher
+
+    - name: Add mkusb Repository
+      apt_repository:
+        repo: ppa:mkusb/ppa
+
+    - name: Add Netext73 Repository
+      apt_repository:
+        repo: ppa:netext/netext73
+
+    - name: Add OBS Studio Repository
+      apt_repository:
+        repo: ppa:obsproject/obs-studio
+
+    - name: Add SlyTomCat Yandex Repository
+      apt_repository:
+        repo: ppa:slytomcat/ppa
+
+    - name: Add Timo Jurinki Thunderbird78 Repository
+      apt_repository:
+        repo: ppa:timo-jyrinki/thunderbird78
+
+    - name: Upgrade all packages to latest version
+      apt:
+        update_cache: true
+        upgrade: dist
+
+    - name: Install Development Tools
+      apt:
+        name:
+          - build-essential
+          - module-assistant
+        state: latest
+
+    - name: Install Base Packages
+      apt:
+        name:
+          - emacs-nox
+          - nano
+          - vim
+          - nmap
+          - netcat
+          - net-tools
+          - bind9-utils
+        state: latest
+
+    - name: Install Server Packages
+      apt:
+        name:
+          - nginx
+          - php
+          - php-fpm
+        state: latest
+
+    - name: Uninstall not in use Desktop Packages
+      apt:
+        name:
+          - transmission-gtk
+          - rhythmbox
+          - brasero
+        state: absent
+        purge: true
+
+    - name: Install Desktop Packages
+      apt:
+        name:
+          - deluge-gtk
+          - vlc
+          - mpv
+          - atom
+        state: latest
