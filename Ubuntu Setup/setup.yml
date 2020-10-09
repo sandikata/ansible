@@ -11,7 +11,7 @@
 
     - name: Add Atom Repository
       apt_repository:
-        repo: https://packagecloud.io/AtomEditor/atom/any/ any main
+        repo: deb https://packagecloud.io/AtomEditor/atom/any/ any main
         state: present
         filename: atom
 
@@ -88,7 +88,7 @@
 
     - name: Add Balena Etcher Repository
       apt_repository:
-        repo: https://deb.etcher.io stable etcher
+        repo: deb https://deb.etcher.io stable etcher
         state: present
         filename: etcher
 
@@ -133,6 +133,8 @@
           - emacs-nox
           - nano
           - vim
+          - neofetch
+          - inxi
           - nmap
           - netcat
           - net-tools
@@ -140,6 +142,7 @@
           - mkusb
           - fsarchiver
           - xfsdump
+          - npm
         state: latest
 
     - name: Install Server Packages
@@ -184,3 +187,45 @@
         name:
           - 1password
           - bitwarden
+
+    - name: Install oh-my-zsh
+      git:
+        repo: https://github.com/ohmyzsh/ohmyzsh.git
+        dest: /opt/oh-my-zsh
+
+    - name: Create /usr/share/fonts/TTF directory needed for powerlevel10k fonts.
+      file:
+        path: /usr/share/fonts/TTF
+        state: directory
+        mode: '0755'
+
+    - name: Install MesloLGS NF Regular.ttf
+      get_url:
+        url: https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+        dest: /usr/share/fonts/TTF
+
+    - name: Install MesloLGS NF Bold.ttf
+      get_url:
+        url: https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+        dest: /usr/share/fonts/TTF
+
+    - name: MesloLGS NF Italic.ttf
+      get_url:
+        url: https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+        dest: /usr/share/fonts/TTF
+
+    - name: Install MesloLGS NF Bold Italic.ttf
+      get_url:
+        url: https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+        dest: /usr/share/fonts/TTF
+
+    - name: Update Font-Cache
+      command: fc-cache -fv
+
+    - name: Deploy zsh dotfiles
+      copy:
+        src: zshrc
+        dest: /etc/zsh/zshrc
+        owner: root
+        group: root
+        mode: '0644'
