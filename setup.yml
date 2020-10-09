@@ -134,6 +134,9 @@
           - netcat
           - net-tools
           - bind9-utils
+          - mkusb
+          - fsarchiver
+          - xfsdump
         state: latest
 
     - name: Install Server Packages
@@ -160,4 +163,16 @@
           - vlc
           - mpv
           - atom
+          - obs-studio
+          - element-desktop
+          - telegram-desktop
+          - balena-etcher-electron
+          - pavucontrol
+          - pulseeffects
         state: latest
+
+    - name: Install Snap Packages
+      snap:
+        name:
+          - 1password
+          - bitwarden
