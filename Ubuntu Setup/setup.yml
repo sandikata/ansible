@@ -246,6 +246,10 @@
       apt:
         deb: https://go.skype.com/skypeforlinux-64.deb
 
+    - name: Install MatterMost Deb Package
+      apt:
+        deb: https://releases.mattermost.com/desktop/4.5.4/mattermost-desktop-4.5.4-linux-amd64.deb
+
     - name: Install Snap Packages
       snap:
         name:
