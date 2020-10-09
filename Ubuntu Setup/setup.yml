@@ -165,16 +165,35 @@
           - libcgi-pm-perl
           - wireguard-tools
           - resolvconf
+          - uptimed
+          - dovecot-core
+          - dovecot-imapd
+          - dovecot-lmtpd
+          - dovecot-pop3d
+          - opendkim
+          - opendkim-tools
+          - postfix-policyd-spf-python
         state: latest
 
     - name: Install Server Packages
       apt:
         name:
-          - nginx
+          - nginx-full
           - php
           - php-fpm
+          - php-xml
+          - php-mysql
+          - php-mbstring
+          - php-zip
+          - php-gd
+          - php-curl
+          - php-intl
+          - php-bcmath
+          - php-gmp
+          - php-imagick
           - mariadb-server
           - bind9
+          - python3-certbot-nginx
         state: latest
 
     - name: Uninstall not in use Desktop Packages
