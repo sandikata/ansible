@@ -112,6 +112,10 @@
       apt_repository:
         repo: ppa:timo-jyrinki/thunderbird78
 
+    - name: Add Dieter Baum fsarchiver Repository
+      apt_repository:
+        repo: ppa:dieterbaum/qt-fsarchiver
+
     - name: Upgrade all packages to latest version
       apt:
         update_cache: true
@@ -200,6 +204,7 @@
           - yd-tools
           - netext73
           - qtpass
+          - qt-fsarchiver
         state: latest
 
     - name: Install Virtualization Software
