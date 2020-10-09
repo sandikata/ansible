@@ -127,6 +127,9 @@
     - name: Install Base Packages
       apt:
         name:
+          - zsh
+          - zsh-autosuggestions
+          - zsh-syntax-highlighting
           - emacs-nox
           - nano
           - vim
@@ -173,6 +176,7 @@
           - balena-etcher-electron
           - pavucontrol
           - pulseeffects
+          - steam
         state: latest
 
     - name: Install Snap Packages
