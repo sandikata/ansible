@@ -150,6 +150,7 @@
           - mkusb
           - fsarchiver
           - xfsdump
+          - oidentd
           - npm
           - ebtables
           - yandex-disk
@@ -161,6 +162,9 @@
           - weechat-devel-python
           - weechat-devel-ruby
           - weechat-devel-tcl
+          - libcgi-pm-perl
+          - wireguard-tools
+          - resolvconf
         state: latest
 
     - name: Install Server Packages
@@ -169,6 +173,8 @@
           - nginx
           - php
           - php-fpm
+          - mariadb-server
+          - bind9
         state: latest
 
     - name: Uninstall not in use Desktop Packages
@@ -213,9 +219,13 @@
           - virtualbox-6.1
           - qemu
 
-    - name: Install Deb Packages
+    - name: Install Viber Deb Package
       apt:
         deb: https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb
+
+    - name: Install Skype Deb Package
+      apt:
+        deb: https://go.skype.com/skypeforlinux-64.deb
 
     - name: Install Snap Packages
       snap:
