@@ -147,7 +147,16 @@
           - fsarchiver
           - xfsdump
           - npm
+          - ebtables
           - yandex-disk
+          - weechat-devel
+          - weechat-devel-guile
+          - weechat-devel-lua
+          - weechat-devel-perl
+          - weechat-devel-plugins
+          - weechat-devel-python
+          - weechat-devel-ruby
+          - weechat-devel-tcl
         state: latest
 
     - name: Install Server Packages
@@ -190,7 +199,18 @@
           - teamviewer
           - yd-tools
           - netext73
+          - qtpass
         state: latest
+
+    - name: Install Virtualization Software
+      apt:
+        name:
+          - virtualbox-6.1
+          - qemu
+
+    - name: Install Deb Packages
+      apt:
+        deb: https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb
 
     - name: Install Snap Packages
       snap:
@@ -274,3 +294,9 @@
       user:
         name: rosen
         shell: /bin/zsh
+
+    - name: Add user rosen to groups
+      user:
+        name: rosen
+        groups: kvm,vboxusers,rosen,pulse,pulse-access,games,users,video,audio,disk,netdev,rtkit,crontab,render
+        append: true
