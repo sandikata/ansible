@@ -68,7 +68,7 @@
       apt_repository:
         repo: deb http://linux.teamviewer.com/deb stable main
         state: present
-        filename: teamviever
+        filename: teamviewer
 
     - name: Add VirtualBox Public Key
       apt_key:
