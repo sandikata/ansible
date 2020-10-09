@@ -153,13 +153,17 @@
           - transmission-gtk
           - rhythmbox
           - brasero
+          - k3b
+          - ktorrent
         state: absent
         purge: true
 
     - name: Install Desktop Packages
       apt:
         name:
+          - guake
           - deluge-gtk
+          - qbittorrent
           - vlc
           - mpv
           - atom
