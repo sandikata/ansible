@@ -6,8 +6,8 @@
 
     - name: Add Atom Public Key
       apt_key:
-      url: https://packagecloud.io/AtomEditor/atom/gpgkey
-      state: present
+        url: https://packagecloud.io/AtomEditor/atom/gpgkey
+        state: present
 
     - name: Add Atom Repository
       apt_repository:
