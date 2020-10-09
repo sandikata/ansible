@@ -130,6 +130,7 @@
           - zsh
           - zsh-autosuggestions
           - zsh-syntax-highlighting
+          - grc
           - emacs-nox
           - nano
           - vim
@@ -146,6 +147,7 @@
           - fsarchiver
           - xfsdump
           - npm
+          - yandex-disk
         state: latest
 
     - name: Install Server Packages
@@ -164,6 +166,8 @@
           - brasero
           - k3b
           - ktorrent
+          - elisa
+
         state: absent
         purge: true
 
@@ -183,6 +187,9 @@
           - pavucontrol
           - pulseeffects
           - steam
+          - teamviewer
+          - yd-tools
+          - netext73
         state: latest
 
     - name: Install Snap Packages
@@ -190,6 +197,12 @@
         name:
           - 1password
           - bitwarden
+        channel: latest/edge
+
+    - name: Clean Orphaned Packages
+      apt:
+        autoremove: true
+        purge: true
 
     - name: Install oh-my-zsh
       git:
@@ -225,6 +238,11 @@
     - name: Update Font-Cache
       command: fc-cache -fv
 
+    - name: Install powerlevel10k theme
+      git:
+        repo: https://github.com/romkatv/powerlevel10k.git
+        dest: /opt/powerlevel10k
+
     - name: Deploy zsh dotfiles
       copy:
         src: zshrc
@@ -232,3 +250,27 @@
         owner: root
         group: root
         mode: '0644'
+
+    - name: Set Up dircolor for user root
+      file:
+        path: /root/.dircolors
+        owner: root
+        group: root
+        state: touch
+
+    - name: Set Up dircolor for user rosen
+      file:
+        path: /home/rosen/.dircolors
+        owner: rosen
+        group: rosen
+        state: touch
+
+    - name: Set Up ZSH for user root
+      user:
+        name: root
+        shell: /bin/zsh
+
+    - name: Set up ZSH for user rosen
+      user:
+        name: rosen
+        shell: /bin/zsh
