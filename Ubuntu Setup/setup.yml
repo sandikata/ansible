@@ -191,6 +191,15 @@
           - php-bcmath
           - php-gmp
           - php-imagick
+          - php-apcu
+          - php-bz2
+          - php-igbinary
+          - php-imap
+          - php-ldap
+          - php-sqlite3
+          - php-redis
+          - php-soap
+          - memcached
           - mariadb-server
           - bind9
           - python3-certbot-nginx
@@ -224,6 +233,7 @@
           - balena-etcher-electron
           - pavucontrol
           - pulseeffects
+          - spotify-client
           - steam
           - teamviewer
           - yd-tools
@@ -250,12 +260,12 @@
       apt:
         deb: https://releases.mattermost.com/desktop/4.5.4/mattermost-desktop-4.5.4-linux-amd64.deb
 
-    - name: Install Snap Packages
-      snap:
-        name:
-          - 1password
-          - bitwarden
-        channel: latest/edge
+#    - name: Install Snap Packages
+#      snap:
+#        name:
+#          - 1password
+#          - bitwarden
+#        channel: latest/edge
 
     - name: Clean Orphaned Packages
       apt:
