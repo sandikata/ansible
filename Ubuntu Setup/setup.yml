@@ -136,7 +136,6 @@
           - zsh-syntax-highlighting
           - grc
           - emacs-nox
-          - nano
           - vim
           - git
           - axel
