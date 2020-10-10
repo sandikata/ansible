@@ -266,6 +266,10 @@
       apt:
         deb: https://github.com/yakyak/yakyak/releases/download/v1.5.9/yakyak-1.5.9-linux-amd64.deb
 
+    - name: Install Caprine Deb Package
+      apt:
+        deb: https://github.com/sindresorhus/caprine/releases/download/v2.50.0/caprine_2.50.0_amd64.deb
+
 #    - name: Install Snap Packages
 #      snap:
 #        name:
