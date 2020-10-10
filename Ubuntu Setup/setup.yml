@@ -172,6 +172,7 @@
           - opendkim
           - opendkim-tools
           - postfix-policyd-spf-python
+          - screen
         state: latest
 
     - name: Install Server Packages
@@ -235,6 +236,7 @@
           - pulseeffects
           - spotify-client
           - steam
+          - gamemode
           - teamviewer
           - yd-tools
           - netext73
