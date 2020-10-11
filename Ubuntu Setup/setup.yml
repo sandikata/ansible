@@ -92,6 +92,17 @@
         state: present
         filename: etcher
 
+    - name: Add Opera Public Key
+      apt_key:
+        url: https://deb.opera.com/archive.key
+        state: present
+
+    - name: Add Opera Repository
+      apt_repository:
+        repo: deb https://deb.opera.com/opera-stable/ stable non-free
+        state: present
+        filename: opera
+
     - name: Add mkusb Repository
       apt_repository:
         repo: ppa:mkusb/ppa
@@ -174,6 +185,9 @@
           - postfix-policyd-spf-python
           - screen
           - s-tui
+          - libnotify-bin
+          - scrot
+          - python3-pip
         state: latest
 
     - name: Install Server Packages
@@ -244,6 +258,7 @@
           - qtpass
           - qt-fsarchiver
           - etcher-electron
+          - opera-stable
         state: latest
 
     - name: Install Virtualization Software
@@ -278,6 +293,10 @@
 #          - 1password
 #          - bitwarden
 #        channel: latest/edge
+
+#    - name: Install Python PIP packages
+#      pip:
+#        name:
 
     - name: Clean Orphaned Packages
       apt:
