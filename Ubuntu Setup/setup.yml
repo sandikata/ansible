@@ -242,6 +242,7 @@
           - netext73
           - qtpass
           - qt-fsarchiver
+          - etcher-electron
         state: latest
 
     - name: Install Virtualization Software
