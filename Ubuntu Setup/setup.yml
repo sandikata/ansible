@@ -173,6 +173,7 @@
           - opendkim-tools
           - postfix-policyd-spf-python
           - screen
+          - s-tui
         state: latest
 
     - name: Install Server Packages
