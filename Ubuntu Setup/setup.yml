@@ -294,9 +294,18 @@
 #          - bitwarden
 #        channel: latest/edge
 
-#    - name: Install Python PIP packages
-#      pip:
-#        name:
+    - name: Install shotpy.py (imgur uploader)
+      get_url:
+        url: https://raw.githubusercontent.com/ayushbhat/shotpy/master/shotpy.py
+        dest: /usr/local/bin/shotpy.py
+        mode: a+x
+
+    - name: Install Python PIP packages
+      pip:
+        name:
+          - pyimgur
+          - subprocess
+          - pyperclip
 
     - name: Clean Orphaned Packages
       apt:
