@@ -300,12 +300,12 @@
         dest: /usr/local/bin/shotpy.py
         mode: a+x
 
-    - name: Install Python PIP packages
-      pip:
-        name:
-          - pyimgur
-          - subprocess
-          - pyperclip
+#    - name: Install Python PIP packages
+#      pip:
+#        name:
+#          - pyimgur
+#          - subprocess
+#          - pyperclip
 
     - name: Clean Orphaned Packages
       apt:
