@@ -384,6 +384,17 @@
         name: rosen
         shell: /bin/zsh
 
+#    - name: Create /etc/qemu directory
+#      file:
+#        path: /etc/qemu
+#        state: directory
+#        mode: '0755'
+
+    - name: Allow access to br0 for qemu
+      command: echo 'allow br0' > /etc/qemu/bridge.conf
+      args:
+        creates: /etc/qemu
+
     - name: Add user rosen to groups
       user:
         name: rosen
