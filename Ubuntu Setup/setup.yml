@@ -266,6 +266,7 @@
         name:
           - virtualbox-6.1
           - qemu
+          - qemu-system
 
     - name: Install Viber Deb Package
       apt:
