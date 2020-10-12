@@ -236,10 +236,10 @@
     - name: Install Desktop Packages
       apt:
         name:
-          - guake
-          - deluge
-          - deluge-gtk
-          - qbittorrent
+          - guake # uncomment for Gnome and GTK based DE
+#          - deluge # uncomment for Gnome and GTK based DE
+#          - deluge-gtk # uncomment for Gnome and GTK based DE
+          - qbittorrent # uncomment for KDE and QT based DE
           - vlc
           - mpv
           - atom
@@ -255,8 +255,8 @@
           - teamviewer
           - yd-tools
           - netext73
-          - qtpass
-          - qt-fsarchiver
+          - qtpass # uncomment for KDE and QT based DE
+          - qt-fsarchiver # uncomment for KDE and QT based DE
           - etcher-electron
           - opera-stable
         state: latest
@@ -396,7 +396,7 @@
         creates: /etc/qemu
       owner:  root
       group: kvm
-      mode: '0640'  
+      mode: '0640'
 
     - name: Add user rosen to groups
       user:
