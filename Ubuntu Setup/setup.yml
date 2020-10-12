@@ -394,6 +394,9 @@
       command: echo 'allow br0' > /etc/qemu/bridge.conf
       args:
         creates: /etc/qemu
+      owner:  root
+      group: kvm
+      mode: '0640'  
 
     - name: Add user rosen to groups
       user:
