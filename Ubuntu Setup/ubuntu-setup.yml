@@ -1,290 +1,81 @@
 ---
-- name: Ubuntu Initial Setup.
-  hosts: localhost
-  gather_facts: false
-  tasks:
+  - name: Ubuntu Initial Setup
+    hosts: localhost
+    gather_facts: false
 
-    - name: Add Public Keys by URL
-      apt_key:
-        url:
-          - https://packagecloud.io/AtomEditor/atom/gpgkey
-          - https://packages.riot.im/debian/riot-im-archive-keyring.gpg
-          - https://repo.yandex.ru/yandex-disk/YANDEX-DISK-KEY.GPG
-          - https://download.spotify.com/debian/pubkey_0D811D58.gpg
-          - https://download.teamviewer.com/download/linux/signature/TeamViewer2017.asc
-          - https://www.virtualbox.org/download/oracle_vbox_2016.asc
-          - https://deb.opera.com/archive.key
-        state: present
+    # Set up variables
+    vars:
+      pubkeyurl: [ 'https://packagecloud.io/AtomEditor/atom/gpgkey',
+      'https://packages.riot.im/debian/riot-im-archive-keyring.gpg',
+      'https://repo.yandex.ru/yandex-disk/YANDEX-DISK-KEY.GPG',
+      'https://download.spotify.com/debian/pubkey_0D811D58.gpg',
+      'https://download.teamviewer.com/download/linux/signature/TeamViewer2017.asc',
+      'https://www.virtualbox.org/download/oracle_vbox_2016.asc',
+      'https://deb.opera.com/archive.key'
+       ]
 
-    - name: Add Public Keys by KeyServer
-      apt_key:
-        keyserver: keyserver.ubuntu.com
-        id:
-          - 11E9DE8848F2B65222AA75B8D1820DB22A11534E
-          - 379CE192D401AB61
+      pubkeyid: [ '11E9DE8848F2B65222AA75B8D1820DB22A11534E',
+      '379CE192D401AB61'
+      ]
 
-    - name: Add Repository by URL
-      apt_repository:
-        repo:
-          - deb https://packagecloud.io/AtomEditor/atom/any/ any main
-          - deb https://packages.riot.im/debian/ default main
-          - deb http://repo.yandex.ru/yandex-disk/deb/ stable main
-          - deb https://weechat.org/ubuntu focal main
-          - deb http://repository.spotify.com stable non-free
-          - deb http://linux.teamviewer.com/deb stable main
-          - deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian eoan contrib
-          - deb https://deb.etcher.io stable etcher
-          - deb deb https://deb.opera.com/opera-stable/ stable non-free
-        state: present
-        filename: 3rdparty.list
+      repourl: [ 'deb https://packagecloud.io/AtomEditor/atom/any/ any main',
+      'deb https://packages.riot.im/debian/ default main',
+      'deb http://repo.yandex.ru/yandex-disk/deb/ stable main',
+      'deb https://weechat.org/ubuntu focal main',
+      'deb http://repository.spotify.com stable non-free',
+      'deb http://linux.teamviewer.com/deb stable main',
+      'deb https://download.virtualbox.org/virtualbox/debian eoan contrib',
+      'deb https://deb.etcher.io stable etcher',
+      'deb https://deb.opera.com/opera-stable/ stable non-free'
+      ]
 
-    - name: Add PPA Repositories
-      apt_repository:
-        repo:
-          - ppa:mkusb/ppa
-          - ppa:netext/netext73
-          - ppa:obsproject/obs-studio
-          - ppa:slytomcat/ppa
-          - ppa:timo-jyrinki/thunderbird78
-          - ppa:dieterbaum/qt-fsarchiver
+      ppa: [ 'ppa:mkusb/ppa',
+      'ppa:netext/netext73',
+      'ppa:obsproject/obs-studio',
+      'ppa:slytomcat/ppa',
+      'ppa:timo-jyrinki/thunderbird78',
+      'ppa:dieterbaum/qt-fsarchiver'
+       ]
 
-    - name: Upgrade all packages to latest version
-      apt:
-        update_cache: true
-        upgrade: dist
+      devpkgs: [ 'build-essential', 'module-assistant'
+      ]
 
-    - name: Install Development Tools
-      apt:
-        name:
-          - build-essential
-          - module-assistant
-        state: latest
+      basepkgs: [ 'zsh', 'zsh-autosuggestions', 'zsh-syntax-highlighting',
+      'grc', 'emacs-nox', 'vim', 'git', 'axel', 'curl', 'neofetch', 'inxi', 'nmap',
+      'netcat', 'net-tools', 'mkusb', 'fsarchiver', 'xfsdump',
+      'oidentd', 'npm', 'ebtables', 'yandex-disk', 'weechat-devel',
+      'weechat-devel-guile', 'weechat-devel-lua', 'weechat-devel-perl',
+      'weechat-devel-plugins', 'weechat-devel-python', 'weechat-devel-ruby',
+      'weechat-devel-tcl', 'libcgi-pm-perl', 'wireguard-tools', 'resolvconf',
+      'uptimed', 'screen', 's-tui', 'libnotify-bin', 'scrot', 'python3-pip'
+      ]
 
-    - name: Install Base Packages
-      apt:
-        name:
-          - zsh
-          - zsh-autosuggestions
-          - zsh-syntax-highlighting
-          - grc
-          - emacs-nox
-          - vim
-          - git
-          - axel
-          - curl
-          - neofetch
-          - inxi
-          - nmap
-          - netcat
-          - net-tools
-          - bind9-utils
-          - mkusb
-          - fsarchiver
-          - xfsdump
-          - oidentd
-          - npm
-          - ebtables
-          - yandex-disk
-          - weechat-devel
-          - weechat-devel-guile
-          - weechat-devel-lua
-          - weechat-devel-perl
-          - weechat-devel-plugins
-          - weechat-devel-python
-          - weechat-devel-ruby
-          - weechat-devel-tcl
-          - libcgi-pm-perl
-          - wireguard-tools
-          - resolvconf
-          - uptimed
-          - dovecot-core
-          - dovecot-imapd
-          - dovecot-lmtpd
-          - dovecot-pop3d
-          - opendkim
-          - opendkim-tools
-          - postfix-policyd-spf-python
-          - screen
-          - s-tui
-          - libnotify-bin
-          - scrot
-          - python3-pip
-        state: latest
+      serverpkgs: [ 'nginx-full', 'mariadb-server', 'bind9', 'bind9-utils',
+      'dovecot-core', 'dovecot-imapd', 'dovecot-pop3d',
+      'opendkim', 'opendkim-tools', 'postfix-policyd-spf-python'
+      ]
 
-    - name: Install Server Packages
-      apt:
-        name:
-          - nginx-full
-          - php
-          - php-fpm
-          - php-xml
-          - php-mysql
-          - php-mbstring
-          - php-zip
-          - php-gd
-          - php-curl
-          - php-intl
-          - php-bcmath
-          - php-gmp
-          - php-imagick
-          - php-apcu
-          - php-bz2
-          - php-igbinary
-          - php-imap
-          - php-ldap
-          - php-sqlite3
-          - php-redis
-          - php-soap
-          - memcached
-          - mariadb-server
-          - bind9
-          - python3-certbot-nginx
-        state: latest
+      uselesspkgs: [ 'transmission-gtk', 'rhythmbox', 'brasero', 'k3b',
+      'ktorrent', 'elisa'
+      ]
 
-    - name: Uninstall not in use Desktop Packages
-      apt:
-        name:
-          - transmission-gtk
-          - rhythmbox
-          - brasero
-          - k3b
-          - ktorrent
-          - elisa
+      desktoppkgs: [ 'guake', 'qbittorrent', 'vlc', 'mpv', 'atom', 'obs-studio',
+      'element-desktop', 'telegram-desktop', 'balena-etcher-electron',
+      'pavucontrol', 'pulseeffects', 'spotify-client', 'steam', 'gamemode',
+      'teamviewer', 'yd-tools', 'netext73', 'qtpass', 'qt-fsarchiver',
+      'etcher-electron', 'opera-stable'
+      ]
 
-        state: absent
-        purge: true
+      virtpkgs: [ 'virtualbox-6.1', 'qemu', 'qemu-system'
+      ]
 
-    - name: Install Desktop Packages
-      apt:
-        name:
-          - guake
-          - deluge
-          - deluge-gtk
-          - qbittorrent
-          - vlc
-          - mpv
-          - atom
-          - obs-studio
-          - element-desktop
-          - telegram-desktop
-          - balena-etcher-electron
-          - pavucontrol
-          - pulseeffects
-          - spotify-client
-          - steam
-          - gamemode
-          - teamviewer
-          - yd-tools
-          - netext73
-          - qtpass
-          - qt-fsarchiver
-          - etcher-electron
-          - opera-stable
-        state: latest
+    tasks:
+      - name: Upgrade all packages to latest version
+        apt:
+          update_cache: true
+          upgrade: dist
 
-    - name: Install Virtualization Software
-      apt:
-        name:
-          - virtualbox-6.1
-          - qemu
-          - qemu-system
-
-    - name: Install Deb Packages
-      apt:
-        deb:
-          - https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb
-          - https://go.skype.com/skypeforlinux-64.deb
-          - https://releases.mattermost.com/desktop/4.5.4/mattermost-desktop-4.5.4-linux-amd64.deb
-          - https://github.com/yakyak/yakyak/releases/download/v1.5.9/yakyak-1.5.9-linux-amd64.deb
-          - https://github.com/sindresorhus/caprine/releases/download/v2.50.0/caprine_2.50.0_amd64.deb
-
-#    - name: Install Snap Packages
-#      snap:
-#        name:
-#          - 1password
-#          - bitwarden
-#        channel: latest/edge
-
-    - name: Install shotpy.py (imgur uploader)
-      get_url:
-        url: https://raw.githubusercontent.com/ayushbhat/shotpy/master/shotpy.py
-        dest: /usr/local/bin/shotpy.py
-        mode: a+x
-
-#    - name: Install Python PIP packages
-#      pip:
-#        name:
-#          - pyimgur
-#          - subprocess
-#          - pyperclip
-
-    - name: Clean Orphaned Packages
-      apt:
-        autoremove: true
-        purge: true
-
-    - name: Install oh-my-zsh
-      git:
-        repo: https://github.com/ohmyzsh/ohmyzsh.git
-        dest: /opt/oh-my-zsh
-
-    - name: Create /usr/share/fonts/TTF directory needed for powerlevel10k fonts.
-      file:
-        path: /usr/share/fonts/TTF
-        state: directory
-        mode: '0755'
-
-    - name: Install powerlevel10k fonts
-      get_url:
-        url:
-          - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
-          - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
-          - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
-          - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
-        dest: /usr/share/fonts/TTF
-
-    - name: Update Font-Cache
-      command: fc-cache -fv
-
-    - name: Install powerlevel10k theme
-      git:
-        repo: https://github.com/romkatv/powerlevel10k.git
-        dest: /opt/powerlevel10k
-
-    - name: Deploy zsh dotfiles
-      copy:
-        src: zshrc
-        dest: /etc/zsh/zshrc
-        owner: root
-        group: root
-        mode: '0644'
-
-    - name: Set Up dircolor for user root
-      file:
-        path: /root/.dircolors
-        owner: root
-        group: root
-        state: touch
-
-    - name: Set Up dircolor for user rosen
-      file:
-        path: /home/rosen/.dircolors
-        owner: rosen
-        group: rosen
-        state: touch
-
-    - name: Set Up ZSH for user root
-      user:
-        name: root
-        shell: /bin/zsh
-
-    - name: Set up ZSH for user rosen
-      user:
-        name: rosen
-        shell: /bin/zsh
-
-    - name: Add user rosen to groups
-      user:
-        name: rosen
-        groups: kvm,vboxusers,rosen,pulse,pulse-access,games,users,video,audio,disk,netdev,rtkit,crontab,render
-        append: true
+      - name: Install Development Tools
+        apt:
+          name: '{{ devpkgs }}'
+          state: latest
