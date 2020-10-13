@@ -1,64 +1,24 @@
 ---
-  - name: Base Packages RHEL7|8/Debian/Ubuntu
-    hosts: vps
-    tasks:
+- name: Base Packages RHEL7|8/Debian/Ubuntu
+  hosts: vps
+
+  vars:
+      rhel: [ 'nano', 'vim', 'nmap', 'nmap-ncat', 'net-tools', 'htop', 'rsync', 'mc', 'tar', 'unzip', 'git', 'sudo', 'epel-release' ]
+      debian: [ 'nano', 'vim', 'nmap', 'net-tools', 'htop', 'rsync', 'mc', 'tar', 'unzip', 'git', 'sudo' ]
+
+  tasks:
+
       - name: Debug
         debug: msg={{ ansible_os_family }}
 
-      # Set Facts
-        loop:
-          - set_fact:
-            package_name:
-              - nano
-              - vim
-              - nmap
-              - nmap-ncat
-              - net-tools
-              - htop
-              - rsync
-              - mc
-              - tar
-              - unzip
-              - git
-              - sudo
-              - epel-release
-            when:
-              ansible_os_family:
-                - RedHat
-                - Debian
-
-      - name: Install Base Packages RHEL7|8
+      - name: Install Base Packages on RHEL7|8
         yum:
-          name:
-            - epel-release
-            - nmap-ncat
-            - nano
-            - vim
-            - nmap
-            - net-tools
-            - htop
-            - rsync
-            - mc
-            - tar
-            - unzip
-            - git
-            - sudo
+          name: '{{ rhel }}'
           state: latest
         when: ansible_os_family == "RedHat"
 
-      - name: Install Base Packages Debian/Ubuntu
+      - name: Install Base Packages on Debian|Ubuntu
         apt:
-          name:
-            - nano
-            - vim
-            - nmap
-            - net-tools
-            - htop
-            - rsync
-            - mc
-            - tar
-            - unzip
-            - git
-            - sudo
+          name: '{{ debian }}'
           state: latest
         when: ansible_os_family == "Debian"
