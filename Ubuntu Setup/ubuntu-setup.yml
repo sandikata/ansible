@@ -3,7 +3,7 @@
     hosts: localhost
     gather_facts: false
 
-    # Set up variables
+    # Set variables
     vars:
       pubkeyurl: [ 'https://packagecloud.io/AtomEditor/atom/gpgkey',
       'https://packages.riot.im/debian/riot-im-archive-keyring.gpg',
@@ -11,12 +11,10 @@
       'https://download.spotify.com/debian/pubkey_0D811D58.gpg',
       'https://download.teamviewer.com/download/linux/signature/TeamViewer2017.asc',
       'https://www.virtualbox.org/download/oracle_vbox_2016.asc',
-      'https://deb.opera.com/archive.key'
-       ]
+      'https://deb.opera.com/archive.key']
 
       pubkeyid: [ '11E9DE8848F2B65222AA75B8D1820DB22A11534E',
-      '379CE192D401AB61'
-      ]
+      '379CE192D401AB61']
 
       repourl: [ 'deb https://packagecloud.io/AtomEditor/atom/any/ any main',
       'deb https://packages.riot.im/debian/ default main',
@@ -24,21 +22,18 @@
       'deb https://weechat.org/ubuntu focal main',
       'deb http://repository.spotify.com stable non-free',
       'deb http://linux.teamviewer.com/deb stable main',
-      'deb https://download.virtualbox.org/virtualbox/debian eoan contrib',
+      'deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian eoan contrib',
       'deb https://deb.etcher.io stable etcher',
-      'deb https://deb.opera.com/opera-stable/ stable non-free'
-      ]
+      'deb https://deb.opera.com/opera-stable/ stable non-free']
 
       ppa: [ 'ppa:mkusb/ppa',
       'ppa:netext/netext73',
       'ppa:obsproject/obs-studio',
       'ppa:slytomcat/ppa',
       'ppa:timo-jyrinki/thunderbird78',
-      'ppa:dieterbaum/qt-fsarchiver'
-       ]
+      'ppa:dieterbaum/qt-fsarchiver']
 
-      devpkgs: [ 'build-essential', 'module-assistant'
-      ]
+      devpkgs: [ 'build-essential', 'module-assistant']
 
       basepkgs: [ 'zsh', 'zsh-autosuggestions', 'zsh-syntax-highlighting',
       'grc', 'emacs-nox', 'vim', 'git', 'axel', 'curl', 'neofetch', 'inxi', 'nmap',
@@ -47,35 +42,202 @@
       'weechat-devel-guile', 'weechat-devel-lua', 'weechat-devel-perl',
       'weechat-devel-plugins', 'weechat-devel-python', 'weechat-devel-ruby',
       'weechat-devel-tcl', 'libcgi-pm-perl', 'wireguard-tools', 'resolvconf',
-      'uptimed', 'screen', 's-tui', 'libnotify-bin', 'scrot', 'python3-pip'
-      ]
+      'uptimed', 'screen', 's-tui', 'libnotify-bin', 'scrot', 'python3-pip']
 
       serverpkgs: [ 'nginx-full', 'mariadb-server', 'bind9', 'bind9-utils',
       'dovecot-core', 'dovecot-imapd', 'dovecot-pop3d',
-      'opendkim', 'opendkim-tools', 'postfix-policyd-spf-python'
-      ]
+      'opendkim', 'opendkim-tools', 'postfix-policyd-spf-python']
 
       uselesspkgs: [ 'transmission-gtk', 'rhythmbox', 'brasero', 'k3b',
-      'ktorrent', 'elisa'
-      ]
+      'ktorrent', 'elisa']
 
       desktoppkgs: [ 'guake', 'qbittorrent', 'vlc', 'mpv', 'atom', 'obs-studio',
       'element-desktop', 'telegram-desktop', 'balena-etcher-electron',
       'pavucontrol', 'pulseeffects', 'spotify-client', 'steam', 'gamemode',
       'teamviewer', 'yd-tools', 'netext73', 'qtpass', 'qt-fsarchiver',
-      'etcher-electron', 'opera-stable'
-      ]
+      'etcher-electron', 'opera-stable']
 
-      virtpkgs: [ 'virtualbox-6.1', 'qemu', 'qemu-system'
-      ]
+      virtpkgs: [ 'virtualbox-6.1', 'qemu', 'qemu-system']
+
+      debpkgs: [ 'https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb',
+      'https://go.skype.com/skypeforlinux-64.deb',
+      'https://releases.mattermost.com/desktop/4.5.4/mattermost-desktop-4.5.4-linux-amd64.deb',
+      'https://github.com/yakyak/yakyak/releases/download/v1.5.9/yakyak-1.5.9-linux-amd64.deb',
+      'https://github.com/sindresorhus/caprine/releases/download/v2.50.0/caprine_2.50.0_amd64.deb']
+
+      fonts: [ 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf',
+      'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf',
+      'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf',
+      'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf']
+
+      snappkgs: [ '1password', 'bitwarden']
 
     tasks:
+
+      - name: Add Public Keys
+        apt_key:
+          url: '{{ item }}'
+          state: present
+        with_items: '{{ pubkeyurl }}'
+        tags:
+          - pubkeys
+
+      - name: Add Public Keys ID's
+        apt_key:
+          keyserver: keyserver.ubuntu.com
+          id: '{{ item }}'
+        with_items: '{{ pubkeyid }}'
+        tags:
+          - pubkeysid
+
+      - name: Add 3rd Party Sources
+        apt_repository:
+          repo: '{{ item }}'
+          state: present
+          filename: 3rdparty
+        with_items: '{{ repourl }}'
+        tags:
+          - 3rdparty
+
+      - name: Add 3rd Party PPA's
+        apt_repository:
+          repo: '{{ item }}'
+        with_items: '{{ ppa }}'
+        tags:
+          - 3rdpartyppa
+
       - name: Upgrade all packages to latest version
         apt:
           update_cache: true
           upgrade: dist
+        tags:
+          - upgrade
 
       - name: Install Development Tools
         apt:
           name: '{{ devpkgs }}'
           state: latest
+        tags:
+          - development
+
+      - name: Clean Orphaned Packages
+        apt:
+          autoremove: true
+          purge: true
+        tags:
+          - autoremove
+
+      - name: Install Base Packages
+        apt:
+          name: '{{ basepkgs }}'
+          state: latest
+        tags:
+          - base
+
+      - name: Install Server Packages
+        apt:
+          name: '{{ serverpkgs }}'
+          state: latest
+        tags:
+          - server
+
+      - name: Install Desktop Packages
+        apt:
+          name: '{{ desktoppkgs }}'
+          state: latest
+        tags:
+          - desktop
+
+      - name: Install Virtualization Hypervisors
+        apt:
+          name: '{{ virtpkgs }}'
+          state: latest
+        tags:
+          - hypervisors
+
+      - name: Install Deb Packages
+        apt:
+          deb={{ item }}
+        with_items: '{{ debpkgs }}'
+        tags:
+          - deb
+
+      - name: Uninstall Useless Desktop Packages
+        apt:
+          name: '{{ uselesspkgs }}'
+          state: absent
+          purge: true
+        tags:
+          - useless
+
+      - name: Install oh-my-zsh
+        git:
+          repo: https://github.com/ohmyzsh/ohmyzsh.git
+          dest: /opt/oh-my-zsh
+        tags:
+          - oh-my-zsh
+
+      - name: Create /usr/share/fonts/TTF directory needed for powerlevel10k fonts.
+        file:
+          path: /usr/share/fonts/TTF
+          state: directory
+          mode: '0755'
+
+      - name: Install powerlevel10k fonts
+        get_url:
+          url: '{{ item }}'
+          dest: /usr/share/fonts/TTF
+        with_items: '{{ fonts }}'
+        tags:
+          - powerlevel10k-fonts
+
+      - name: Update Font-Cache
+        command: fc-cache -fv
+        tags:
+          - fc-cache
+
+      - name: Install powerlevel10k theme
+        git:
+          repo: https://github.com/romkatv/powerlevel10k.git
+          dest: /opt/powerlevel10k
+
+      - name: Deploy zsh dotfiles
+        copy:
+          src: zshrc
+          dest: /etc/zsh/zshrc
+          owner: root
+          group: root
+          mode: '0644'
+        tags:
+          - zsh
+          - dotfiles
+
+      - name: Set Up dircolor for user root
+        file:
+          path: /root/.dircolors
+          owner: root
+          group: root
+          state: touch
+
+      - name: Set Up dircolor for user rosen
+        file:
+          path: /home/rosen/.dircolors
+          owner: rosen
+          group: rosen
+          state: touch
+
+      - name: Set Up ZSH for user root
+        user:
+          name: root
+          shell: /bin/zsh
+
+      - name: Set up ZSH for user rosen
+        user:
+          name: rosen
+          shell: /bin/zsh
+
+      - name: Add user rosen to groups
+        user:
+          name: rosen
+          groups: kvm,vboxusers,rosen,pulse,pulse-access,games,users,video,audio,disk,netdev,rtkit,crontab,render
+          append: true
