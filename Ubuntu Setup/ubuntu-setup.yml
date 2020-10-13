@@ -72,6 +72,8 @@
 
       snappkgs: [ '1password', 'bitwarden']
 
+      users: [ 'root', 'rosen' ]
+
     tasks:
 
       - name: Add Public Keys
@@ -79,16 +81,14 @@
           url: '{{ item }}'
           state: present
         with_items: '{{ pubkeyurl }}'
-        tags:
-          - pubkeys
+        tags: pubkeys
 
       - name: Add Public Keys ID's
         apt_key:
           keyserver: keyserver.ubuntu.com
           id: '{{ item }}'
         with_items: '{{ pubkeyid }}'
-        tags:
-          - pubkeysid
+        tags: pubkeysid
 
       - name: Add 3rd Party Sources
         apt_repository:
@@ -96,86 +96,74 @@
           state: present
           filename: 3rdparty
         with_items: '{{ repourl }}'
-        tags:
-          - 3rdparty
+        tags: 3rdparty
 
       - name: Add 3rd Party PPA's
         apt_repository:
           repo: '{{ item }}'
         with_items: '{{ ppa }}'
-        tags:
-          - 3rdpartyppa
+        tags: 3rdpartyppa
 
       - name: Upgrade all packages to latest version
         apt:
           update_cache: true
           upgrade: dist
-        tags:
-          - upgrade
+        tags: upgrade
 
       - name: Install Development Tools
         apt:
           name: '{{ devpkgs }}'
           state: latest
-        tags:
-          - development
+        tags: development
 
       - name: Clean Orphaned Packages
         apt:
           autoremove: true
           purge: true
-        tags:
-          - autoremove
+        tags: autoremove
 
       - name: Install Base Packages
         apt:
           name: '{{ basepkgs }}'
           state: latest
-        tags:
-          - base
+        tags: base
 
       - name: Install Server Packages
         apt:
           name: '{{ serverpkgs }}'
           state: latest
-        tags:
-          - server
+        tags: server
 
       - name: Install Desktop Packages
         apt:
           name: '{{ desktoppkgs }}'
           state: latest
-        tags:
-          - desktop
+        tags: desktop
 
       - name: Install Virtualization Hypervisors
         apt:
           name: '{{ virtpkgs }}'
           state: latest
-        tags:
-          - hypervisors
+        tags: hypervisors
 
       - name: Install Deb Packages
         apt:
           deb={{ item }}
         with_items: '{{ debpkgs }}'
-        tags:
-          - deb
+        tags: deb
 
       - name: Uninstall Useless Desktop Packages
         apt:
           name: '{{ uselesspkgs }}'
           state: absent
           purge: true
-        tags:
-          - useless
+        tags: useless
 
       - name: Install oh-my-zsh
         git:
           repo: https://github.com/ohmyzsh/ohmyzsh.git
           dest: /opt/oh-my-zsh
-        tags:
-          - oh-my-zsh
+        tags: oh-my-zsh
 
       - name: Create /usr/share/fonts/TTF directory needed for powerlevel10k fonts.
         file:
@@ -188,13 +176,11 @@
           url: '{{ item }}'
           dest: /usr/share/fonts/TTF
         with_items: '{{ fonts }}'
-        tags:
-          - powerlevel10k-fonts
+        tags: powerlevel10k-fonts
 
       - name: Update Font-Cache
         command: fc-cache -fv
-        tags:
-          - fc-cache
+        tags: fc-cache
 
       - name: Install powerlevel10k theme
         git:
@@ -212,29 +198,12 @@
           - zsh
           - dotfiles
 
-      - name: Set Up dircolor for user root
-        file:
-          path: /root/.dircolors
-          owner: root
-          group: root
-          state: touch
-
-      - name: Set Up dircolor for user rosen
-        file:
-          path: /home/rosen/.dircolors
-          owner: rosen
-          group: rosen
-          state: touch
-
-      - name: Set Up ZSH for user root
+      - name: Change default shell to zsh for '{{ users }}'
         user:
-          name: root
+          name: '{{ item }}'
           shell: /bin/zsh
-
-      - name: Set up ZSH for user rosen
-        user:
-          name: rosen
-          shell: /bin/zsh
+        with_items: '{{ users }}'
+        tags: chsh
 
       - name: Add user rosen to groups
         user:
