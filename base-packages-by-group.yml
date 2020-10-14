@@ -1,0 +1,24 @@
+---
+- hosts: all
+  tasks:
+    - group_by: key=os_{{ ansible_distribution }}
+
+- hosts: os_CentOS
+  gather_facts: false
+  vars:
+    centos: [ 'nano', 'vim', 'nmap', 'nmap-ncat', 'net-tools', 'htop', 'rsync', 'mc', 'tar', 'unzip', 'git', 'sudo', 'epel-release' ]
+  tasks:
+    - name: Install Base Packages
+      yum:
+        name: '{{ centos }}'
+        state: latest
+
+- hosts: os_Ubuntu
+  gather_facts: false
+  vars:
+    ubuntu: [ 'nano', 'vim', 'nmap', 'net-tools', 'htop', 'rsync', 'mc', 'tar', 'unzip', 'git', 'sudo' ]
+  tasks:
+    - name: Install Base Packages
+      apt:
+        name: '{{ ubuntu }}'
+        state: latest
