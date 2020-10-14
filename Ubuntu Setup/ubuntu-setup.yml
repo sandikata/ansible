@@ -165,6 +165,13 @@
           dest: /opt/oh-my-zsh
         tags: oh-my-zsh
 
+      - name: Allow qemu bridge access
+        lineinfile:
+          path: /etc/qemu/bridge.conf
+          line: allow br0
+          create: yes
+        tags: qemu-bridge
+
       - name: Create /usr/share/fonts/TTF directory needed for powerlevel10k fonts.
         file:
           path: /usr/share/fonts/TTF
