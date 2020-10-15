@@ -163,6 +163,7 @@
         apt:
           name: '*'
           state: fixed
+        tags: fix-broken
 
       - name: Install oh-my-zsh
         git:
