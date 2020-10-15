@@ -1,0 +1,8 @@
+---
+- name: stdout
+  hosts: 192.168.56.54
+  tasks:
+    - name: show output of command
+      command: cat /etc/fstab
+      register: cat
+    - debug: var=cat.stdout_lines
