@@ -159,6 +159,11 @@
           purge: true
         tags: useless
 
+      - name: Fix Broken Packages
+        apt:
+          name: '*'
+          state: fixed
+
       - name: Install oh-my-zsh
         git:
           repo: https://github.com/ohmyzsh/ohmyzsh.git
