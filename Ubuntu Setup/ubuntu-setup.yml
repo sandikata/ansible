@@ -87,7 +87,7 @@
         apt_key:
           keyserver: keyserver.ubuntu.com
           id: '{{ item }}'
-        with_items: '{{ pubkeyid }}'
+        loop: '{{ pubkeyid }}'
         tags: pubkeysid
 
       - name: Add 3rd Party Sources
@@ -95,13 +95,13 @@
           repo: '{{ item }}'
           state: present
           filename: 3rdparty
-        with_items: '{{ repourl }}'
+        loop: '{{ repourl }}'
         tags: 3rdparty
 
       - name: Add 3rd Party PPA's
         apt_repository:
           repo: '{{ item }}'
-        with_items: '{{ ppa }}'
+        loop: '{{ ppa }}'
         tags: 3rdpartyppa
 
       - name: Upgrade all packages to latest version
@@ -149,7 +149,7 @@
       - name: Install Deb Packages
         apt:
           deb={{ item }}
-        with_items: '{{ debpkgs }}'
+        loop: '{{ debpkgs }}'
         tags: deb
 
       - name: Uninstall Useless Desktop Packages
@@ -182,7 +182,7 @@
         get_url:
           url: '{{ item }}'
           dest: /usr/share/fonts/TTF
-        with_items: '{{ fonts }}'
+        loop: '{{ fonts }}'
         tags: powerlevel10k-fonts
 
       - name: Update Font-Cache
@@ -209,7 +209,7 @@
         user:
           name: '{{ item }}'
           shell: /bin/zsh
-        with_items: '{{ users }}'
+        loop: '{{ users }}'
         tags: chsh
 
       - name: Add user rosen to groups
