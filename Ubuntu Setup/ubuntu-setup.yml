@@ -80,7 +80,7 @@
         apt_key:
           url: '{{ item }}'
           state: present
-        with_items: '{{ pubkeyurl }}'
+        loop: '{{ pubkeyurl }}'
         tags: pubkeys
 
       - name: Add Public Keys ID's
