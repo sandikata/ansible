@@ -2,6 +2,7 @@
 - name: Test connection to servers
   hosts: all
   gather_facts: false
+  strategy: free
 
   tasks:
     - name: Ping servers
