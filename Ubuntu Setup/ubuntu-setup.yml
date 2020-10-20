@@ -11,7 +11,8 @@
       'https://download.spotify.com/debian/pubkey_0D811D58.gpg',
       'https://download.teamviewer.com/download/linux/signature/TeamViewer2017.asc',
       'https://www.virtualbox.org/download/oracle_vbox_2016.asc',
-      'https://deb.opera.com/archive.key']
+      'https://deb.opera.com/archive.key',
+      'https://keys.anydesk.com/repos/DEB-GPG-KEY']
 
       pubkeyid: [ '11E9DE8848F2B65222AA75B8D1820DB22A11534E',
       '379CE192D401AB61']
@@ -24,7 +25,8 @@
       'deb http://linux.teamviewer.com/deb stable main',
       'deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian eoan contrib',
       'deb https://deb.etcher.io stable etcher',
-      'deb https://deb.opera.com/opera-stable/ stable non-free']
+      'deb https://deb.opera.com/opera-stable/ stable non-free',
+      'deb http://deb.anydesk.com/ all main']
 
       ppa: [ 'ppa:mkusb/ppa',
       'ppa:netext/netext73',
