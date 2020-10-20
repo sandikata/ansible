@@ -1,5 +1,6 @@
 ---
 - hosts: all
+  strategy: linear
   tasks:
     - name: Debug
       debug: msg={{ ansible_os_family }}
