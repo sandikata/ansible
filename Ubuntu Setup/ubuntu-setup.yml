@@ -57,7 +57,7 @@
       'element-desktop', 'telegram-desktop', 'balena-etcher-electron',
       'pavucontrol', 'pulseeffects', 'spotify-client', 'steam', 'gamemode',
       'teamviewer', 'yd-tools', 'netext73', 'qtpass', 'qt-fsarchiver',
-      'etcher-electron', 'opera-stable']
+      'etcher-electron', 'opera-stable', 'anydesk']
 
       virtpkgs: [ 'virtualbox-6.1', 'qemu', 'qemu-system']
 
