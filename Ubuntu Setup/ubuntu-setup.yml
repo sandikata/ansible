@@ -63,7 +63,7 @@
 
       debpkgs: [ 'https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb',
       'https://go.skype.com/skypeforlinux-64.deb',
-      'https://releases.mattermost.com/desktop/4.5.4/mattermost-desktop-4.6.0-linux-amd64.deb',
+      'https://releases.mattermost.com/desktop/4.6.0/mattermost-desktop-4.6.0-linux-amd64.deb',
       'https://github.com/yakyak/yakyak/releases/download/v1.5.9/yakyak-1.5.9-linux-amd64.deb',
       'https://github.com/sindresorhus/caprine/releases/download/v2.50.0/caprine_2.50.0_amd64.deb']
 
