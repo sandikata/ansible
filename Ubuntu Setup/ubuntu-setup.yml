@@ -9,20 +9,16 @@
       'https://packages.riot.im/debian/riot-im-archive-keyring.gpg',
       'https://repo.yandex.ru/yandex-disk/YANDEX-DISK-KEY.GPG',
       'https://download.spotify.com/debian/pubkey_0D811D58.gpg',
-      'https://download.teamviewer.com/download/linux/signature/TeamViewer2017.asc',
       'https://www.virtualbox.org/download/oracle_vbox_2016.asc',
       'https://deb.opera.com/archive.key',
       'https://keys.anydesk.com/repos/DEB-GPG-KEY']
 
-      pubkeyid: [ '11E9DE8848F2B65222AA75B8D1820DB22A11534E',
-      '379CE192D401AB61']
+      pubkeyid: ['379CE192D401AB61']
 
       repourl: [ 'deb https://packagecloud.io/AtomEditor/atom/any/ any main',
       'deb https://packages.riot.im/debian/ default main',
       'deb http://repo.yandex.ru/yandex-disk/deb/ stable main',
-      'deb https://weechat.org/ubuntu focal main',
       'deb http://repository.spotify.com stable non-free',
-      'deb http://linux.teamviewer.com/deb stable main',
       'deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian eoan contrib',
       'deb https://deb.etcher.io stable etcher',
       'deb https://deb.opera.com/opera-stable/ stable non-free',
@@ -31,19 +27,19 @@
       ppa: [ 'ppa:mkusb/ppa',
       'ppa:netext/netext73',
       'ppa:obsproject/obs-studio',
-      'ppa:slytomcat/ppa',
-      'ppa:timo-jyrinki/thunderbird78',
-      'ppa:dieterbaum/qt-fsarchiver']
+#      'ppa:slytomcat/ppa',
+      'ppa:dieterbaum/qt-fsarchiver',
+      'ppa:linuxuprising/guake']
 
       devpkgs: [ 'build-essential', 'module-assistant']
 
       basepkgs: [ 'zsh', 'zsh-autosuggestions', 'zsh-syntax-highlighting',
       'grc', 'emacs-nox', 'vim', 'git', 'axel', 'curl', 'neofetch', 'inxi', 'nmap',
       'netcat', 'net-tools', 'mkusb', 'fsarchiver', 'xfsdump',
-      'oidentd', 'npm', 'ebtables', 'yandex-disk', 'weechat-devel',
-      'weechat-devel-guile', 'weechat-devel-lua', 'weechat-devel-perl',
-      'weechat-devel-plugins', 'weechat-devel-python', 'weechat-devel-ruby',
-      'weechat-devel-tcl', 'libcgi-pm-perl', 'wireguard-tools', 'resolvconf',
+      'oidentd', 'npm', 'ebtables', 'yandex-disk', 'weechat',
+      'weechat-guile', 'weechat-lua', 'weechat-perl',
+      'weechat-plugins', 'weechat-python', 'weechat-ruby',
+      'weechat-tcl', 'libcgi-pm-perl', 'wireguard-tools', 'resolvconf',
       'uptimed', 'screen', 's-tui', 'libnotify-bin', 'scrot', 'python3-pip']
 
       serverpkgs: [ 'nginx-full', 'mariadb-server', 'bind9', 'bind9-utils',
@@ -53,10 +49,10 @@
       uselesspkgs: [ 'transmission-gtk', 'rhythmbox', 'brasero', 'k3b',
       'ktorrent', 'elisa']
 
-      desktoppkgs: [ 'guake', 'qbittorrent', 'vlc', 'mpv', 'atom', 'obs-studio',
+      desktoppkgs: [ 'guake', 'qbittorrent', 'vlc', 'mpv', 'atom-beta', 'obs-studio',
       'element-desktop', 'telegram-desktop', 'balena-etcher-electron',
       'pavucontrol', 'pulseeffects', 'spotify-client', 'steam', 'gamemode',
-      'teamviewer', 'yd-tools', 'netext73', 'qtpass', 'qt-fsarchiver',
+      'yd-tools', 'netext73', 'qtpass', 'qt-fsarchiver',
       'etcher-electron', 'opera-stable', 'anydesk']
 
       virtpkgs: [ 'virtualbox-6.1', 'qemu', 'qemu-system']
